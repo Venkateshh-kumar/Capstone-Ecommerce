@@ -1,84 +1,142 @@
 /* Container for the form */
 .form-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  background: #e3edef; /* Slightly opaque white background */
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px); /* Blurring the background */
+}
+
+/* Form title */
+.form-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Input fields */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Label for input fields */
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Input fields styling */
+input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Submit button */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Error messages */
+.error {
+  color: #d9534f;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* "Remember me" checkbox */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin: 0;
+}
+
+.checkbox-group label {
+  margin-left: 10px;
+}
+
+
+
+/* Link to switch between Sign In and Sign Up */
+.form-footer {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.form-footer a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile view styles */
+@media (max-width: 600px) {
+  .form-container {
     padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Form title */
-  .form-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
+
+  .form-title {
+    font-size: 28px;
   }
-  
-  /* Input fields */
-  .form-container .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-container .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .form-container .form-group input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    transition: border-color 0.3s ease;
-  }
-  
-  .form-container .form-group input:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  /* Submit button */
-  .form-container button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .form-container button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Error messages */
-  .form-container .error {
-    color: red;
+
+  input {
     font-size: 14px;
+    padding: 10px;
+  }
+
+  button[type="submit"] {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .error {
+    font-size: 12px;
+  }
+
+  .checkbox-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .checkbox-group label {
+    margin-left: 0;
     margin-top: 5px;
   }
-  
-  /* Link to switch between Sign In and Sign Up */
-  .form-container .form-footer {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .form-container .form-footer a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .form-container .form-footer a:hover {
-    text-decoration: underline;
-  }
-  
+}

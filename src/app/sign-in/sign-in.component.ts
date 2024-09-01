@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
   standalone: true,
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule,RouterLink]
 })
 export class SignInComponent {
   signInEmail: string = '';

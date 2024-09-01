@@ -12,15 +12,28 @@
     <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
     <div class="product-row">
       <div *ngFor="let product of filteredProducts" class="product-card">
-        <img [src]="product.image" [alt]="product.name" class="product-image">
+        <img [src]="product.image" [alt]="product.name" class="product-image" (click)="showProductInfo(product)">
         <div class="product-info">
           <h2>{{ product.name }}</h2>
           <h3>Cost ${{ product.price }}</h3>
           <p>{{ product.description }}</p>
-          <button (click)="addToCart(product)">Add to Cart</button>
+          <button (click)="addToCart(product, $event)">Add to Cart</button>
+          <div class="confirmation-message" *ngIf="product.addedToCart">Congratulations, your item is added to your cart.</div>
         </div>
-        
       </div>
     </div>
   </section>
+
+  <div class="modal" *ngIf="selectedProduct">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <img [src]="selectedProduct.image" [alt]="selectedProduct.name" class="modal-image">
+      <div class="modal-info">
+        <h2>{{ selectedProduct.name }}</h2>
+        <h3>Cost ${{ selectedProduct.price }}</h3>
+        <p>{{ selectedProduct.description }}</p>
+        <button (click)="addToCart(selectedProduct, $event)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
 </div>

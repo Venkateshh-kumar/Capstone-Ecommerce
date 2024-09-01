@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule,RouterLink]
 })
 export class SignUpComponent {
   signUpFullName: string = '';

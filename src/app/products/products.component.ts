@@ -13,9 +13,9 @@ import { CommonModule } from '@angular/common';
 export class ProductComponent implements OnInit {
   products: any[] = [];
   newProduct: any = {};
-  editingProduct: any = null;
-  showForm: string | null = null;
-  categories: string[] = ['chairs', 'tables', 'sofas'];
+  editingProduct: any | null = null;
+  showForm: 'add' | null = null;
+  categories: string[] = [];
   loading = false;
   errorMessage: string | null = null;
 
@@ -29,6 +29,7 @@ export class ProductComponent implements OnInit {
     this.getProducts();
   }
 
+  // Fetch categories from the API
   getCategories(): void {
     this.http.get<string[]>(this.categoriesUrl).subscribe({
       next: (data) => {
@@ -42,13 +43,14 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  // Fetch products from the API
   getProducts(): void {
     this.loading = true;
     this.errorMessage = null;
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: (data) => {
-        console.log('Products loaded:', data);
         this.products = data;
+        console.log('Products loaded:', this.products);
         this.loading = false;
       },
       error: (error) => {
@@ -59,8 +61,9 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  // Add a new product to the API
   addProduct(): void {
-    if (this.newProduct.name && this.newProduct.price) {
+    if (this.newProduct.name && this.newProduct.price && this.newProduct.quantity !== undefined) {
       this.http.post(this.apiUrl, this.newProduct).subscribe({
         next: (data) => {
           console.log('Product added:', data);
@@ -72,40 +75,49 @@ export class ProductComponent implements OnInit {
           this.errorMessage = 'Failed to add product. Please try again later.';
         }
       });
+    } else {
+      this.errorMessage = 'Please fill in all required fields.';
     }
   }
 
+  // Start editing a product
   startEditing(product: any): void {
     this.editingProduct = { ...product };
     console.log('Editing Product:', this.editingProduct);
   }
 
+  // Update the product on the API
   updateProduct(): void {
     if (this.editingProduct) {
       this.http.put(`${this.apiUrl}/${this.editingProduct._id}`, this.editingProduct).subscribe({
         next: (data) => {
           console.log('Product updated:', data);
           this.getProducts();
-          this.editingProduct = null;
+          this.cancelEditing();
         },
         error: (error) => {
           console.error('Error updating product:', error);
           this.errorMessage = 'Failed to update product. Please try again later.';
         }
       });
+    } else {
+      this.errorMessage = 'No product selected for editing.';
     }
   }
 
+  // Cancel editing mode
   cancelEditing(): void {
     this.editingProduct = null;
   }
 
+  // Confirm and delete a product
   confirmDelete(product: any): void {
     if (confirm('Are you sure you want to delete this product?')) {
       this.deleteProduct(product);
     }
   }
 
+  // Delete the product from the API
   deleteProduct(product: any): void {
     this.http.delete(`${this.apiUrl}/${product._id}`).subscribe({
       next: () => {
@@ -119,11 +131,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  // Show the form for adding a new product
   showAddForm(): void {
     this.showForm = 'add';
     this.newProduct = {};
   }
 
+  // Toggle the form visibility
   toggleForm(): void {
     this.showForm = null;
   }

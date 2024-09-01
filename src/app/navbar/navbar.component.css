@@ -1,49 +1,96 @@
 /* Basic reset */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+.container {
+    display: flex;
+}
+
+.hamburger-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #009688; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 1002; /* Ensure it is above the sidebar */
+}
+
+.hamburger-button:hover {
+    background-color: #00796b; /* Darker shade on hover */
+}
+
+.hamburger-button.disabled {
+    background-color: #b0bec5; /* Grey color for disabled state */
+    cursor: not-allowed;
+}
+
+/* Sidebar Styles */
 .side-menu {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px; /* Adjust height for the horizontal bar */
-    background-color:#fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    left: -250px; /* Initially hidden off-screen */
+    width: 250px;
+    height: 100%;
+    background-color: #eee5e5;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s;
+    z-index: 1001; /* Ensure sidebar is above other content */
 }
 
+.side-menu.open {
+    left: 0; /* Slide in when open */
+}
+
+/* Close Button for Sidebar */
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px;
+    color: #000;
+}
+
+/* Sidebar Header */
+.side-menu h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #009688;
+}
+
+/* Menu Content Styles */
 .menu-content {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 1200px; /* Optional: Limit the width of the menu */
+    flex-direction: column;
+    padding: 10px;
 }
 
 .menu-item {
-    padding: 15px 20px;
-    text-align: center;
+    padding: 15px;
+    cursor: pointer;
     text-decoration: none;
     color: #000;
     font-size: 18px;
     font-weight: 500;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background 0.5s ease, color 0.5s ease;
 }
 
 .menu-item:hover {
-    background-color: #575757;
-    color: #ffeb3b;
+    background-color: #000;
+    color: #fff;
 }
 
 .menu-item:active {
-    background-color: #222;
+    background-color: #424141;
 }
 
 .menu-item:focus {
@@ -51,101 +98,48 @@
     background-color: #444;
 }
 
-.auth-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Space between buttons */
-    /* margin-top: 2px; Space above the buttons */
-  }
-  
-  .auth-buttons button {
-    background-color: #007bff; /* Primary button color */
-    color: white; /* Text color */
-    border: none; /* Remove default border */
-    /* border-radius: 5px;  */
-    padding: 10px 20px; /* Vertical and horizontal padding */
-    font-size: 15px;
-    cursor: pointer; 
-    transition: background-color 0.3s, transform 0.2s; 
-  }
-  
-  .auth-buttons button:hover {
-    background-color: #0056b3; /* Darker color on hover */
-    transform: scale(1.05); /* Slightly enlarge button on hover */
-  }
-  
-  .auth-buttons button:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5); /* Add a custom focus outline */
-  }
-  
-
-.form-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1001;
-}
-
-.form-popup {
-    background-color: #fff;
+/* Main Content Styles */
+.main-content {
+    margin-left: 0; /* Default margin */
+    transition: margin-left 0.3s; /* Smooth transition for resizing */
+    flex: 1;
     padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 400px; /* Adjust form width as needed */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease-in-out;
 }
 
-.form-group {
-    margin-bottom: 15px;
+/* Adjustments when sidebar is open */
+.main-content.sidebar-open {
+    margin-left: 250px; /* Same width as sidebar */
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    /* background-color: #333; */
-    color: black;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-button:hover {
-    background-color: #444;
-}
-
-.error {
-    color: red;
-    font-size: 12px;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
+/* Responsive Styles */
+@media (max-width: 768px) { /* Tablet and mobile devices */
+    .hamburger-button {
+        top: 15px;
+        left: 15px;
+        font-size: 20px;
+        padding: 12px;
     }
-    to {
-        opacity: 1;
-        transform: scale(1);
+
+    .side-menu {
+        width: 200px; /* Smaller width for mobile view */
+    }
+
+    .main-content.sidebar-open {
+        margin-left: 200px; /* Adjust margin for mobile view */
+    }
+}
+
+@media (max-width: 480px) { /* Mobile devices */
+    .hamburger-button {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    .side-menu {
+        width: 180px; /* Even smaller width for mobile view */
+    }
+
+    .main-content.sidebar-open {
+        margin-left: 180px; /* Adjust margin for mobile view */
     }
 }

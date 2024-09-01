@@ -1,24 +1,28 @@
-<div class="form-container">
-    <div class="form-horizontal">
-      <form (ngSubmit)="signIn()" #signInForm="ngForm">
-        <div class="form-group">
-          <label for="signInEmail">Email:</label>
-          <input id="signInEmail" [(ngModel)]="signInEmail" name="email" #email="ngModel" required>
-          <div *ngIf="signInForm.submitted && !email.valid" class="error">
-            Email is required
-          </div>
+
+    <div class="form-container">
+        <div class="form-horizontal">
+            <h1 class="form-title">Sign In</h1>
+            <form (ngSubmit)="signIn()" #signInForm="ngForm">
+                <div class="form-group">
+                    <label for="signInEmail">Email:</label>
+                    <input id="signInEmail" [(ngModel)]="signInEmail" placeholder="enter your email" name="email" #email="ngModel" required>
+                    <div *ngIf="signInForm.submitted && !email.valid" class="error">
+                        Email is required
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signInPassword">Password:</label>
+                    <input id="signInPassword" type="password" [(ngModel)]="signInPassword" placeholder="password" name="password" #password="ngModel" required>
+                    <div *ngIf="signInForm.submitted && !password.valid" class="error">
+                        Password is required
+                    </div>
+                </div>
+                <div class="form-group">
+    <button type="submit">Sign In</button>
+    <p>Don't have an account? <a [routerLink]="['/sign-up']" [queryParams]="{ signUp: true }">Register here</a></p>
+</div>
+
+            </form>
         </div>
-        <div class="form-group">
-          <label for="signInPassword">Password:</label>
-          <input id="signInPassword" type="password" [(ngModel)]="signInPassword" name="password" #password="ngModel" required>
-          <div *ngIf="signInForm.submitted && !password.valid" class="error">
-            Password is required
-          </div>
-        </div>
-        <div class="form-group">
-          <button type="submit">Sign In</button>
-        </div>
-      </form>
     </div>
-  </div>
-  
+

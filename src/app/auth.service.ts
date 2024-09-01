@@ -72,10 +72,9 @@ export class AuthService {
   private apiUrl = 'http://localhost:5000/api/users'; // Updated endpoint
   private adminCredentials = {
     email: 'admin@gmail.com',
-    password: 'adminpass'
+    password: 'admin'
   };
   private TOKEN_KEY = 'authToken'; // Key for storing the token
-
   private adminStatus = new BehaviorSubject<boolean>(false); // Holds the admin status
 
   constructor(private http: HttpClient) {}
@@ -146,3 +145,4 @@ export class AuthService {
     return !!this.getToken();
   }
 }
+

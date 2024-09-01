@@ -46,7 +46,9 @@ const ProductSchema = new mongoose.Schema({
     price: Number,
     description: String,
     category: String,
+    quantity: { type: Number, default: 0 },
     image: String
+    
 });
 
 const Product = mongoose.model('Product', ProductSchema);
@@ -153,8 +155,8 @@ app.post('/api/users/signin', async (req, res) => {
 // Route to add a new product
 app.post('/api/products', async (req, res) => {
     try {
-        const { name, price, description, category, image } = req.body;
-        const product = new Product({ name, price, description, category, image });
+        const { name, price, description, category,quantity, image } = req.body;
+        const product = new Product({ name, price, description, category,quantity, image });
         await product.save();
         res.status(201).json(product);
     } catch (err) {
@@ -178,10 +180,10 @@ app.get('/api/products', async (req, res) => {
 app.put('/api/products/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, price, description, category, image } = req.body;
+        const { name, price, description, category,quantity, image } = req.body;
 
         const updatedProduct = await Product.findByIdAndUpdate(id, {
-            name, price, description, category, image
+            name, price, description, category,quantity, image
         }, { new: true });
 
         if (!updatedProduct) {
@@ -216,7 +218,7 @@ app.delete('/api/products/:id', async (req, res) => {
 app.get('/api/products/categories', (req, res) => {
     try {
         // Assuming categories are predefined and not stored in the database
-        const categories = ['Chairs', 'Sofas', 'Table', 'Home Decor'];
+        const categories = ['Veg', 'Non-vej', 'Snacks & Treats', 'Drinks & Beverages'];
         res.json(categories);
     } catch (err) {
         console.error('Error fetching categories:', err.message);
