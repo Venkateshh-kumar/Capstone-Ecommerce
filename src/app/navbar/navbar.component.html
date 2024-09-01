@@ -1,0 +1,19 @@
+<nav class="side-menu">
+  <h1>FOODMANIA</h1>
+  <div class="menu-content">
+    <!-- HOME are visible for admin & users -->
+    <a class="menu-item" [routerLink]="['/home']">HOME</a>     
+    <!-- Products are visible for admin only -->  
+    <a *ngIf="isAdmin" class="menu-item" [routerLink]="['/products']">PRODUCTS</a>
+
+    <!-- Sign IN and Sign UP are visible only if the user is not an admin -->
+    <a class="menu-item" [routerLink]="['/sign-in']">Login</a>
+    <a *ngIf="!isAdmin" class="menu-item" [routerLink]="['/sign-up']">Sign UP</a>
+
+    <!-- CART, Contact Us, and ORDER should always be visible regardless of admin status -->
+    <a *ngIf="!isAdmin" class="menu-item" [routerLink]="['/cart']">CART</a>
+    <a  class="menu-item" [routerLink]="['/shop']">SHOP</a>
+    <a class="menu-item" [routerLink]="['/contactus']">Contact Us</a>
+    <a *ngIf="!isAdmin" class="menu-item" [routerLink]="['/order']">ORDER</a>
+  </div>
+</nav>

@@ -1,0 +1,87 @@
+<div class="checkout-container">
+    <h1>Checkout</h1>
+  
+    <!-- Display cart items if available -->
+    <div *ngIf="cartItems.length > 0">
+      <mat-card *ngFor="let item of cartItems">
+        <mat-card-header>
+          <mat-card-title>{{ item.name }}</mat-card-title>
+          <mat-card-subtitle>Price: ${{ item.price }} | Quantity: {{ item.quantity }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="item.image" alt="{{ item.name }}">
+        <mat-card-content>
+          <p>{{ item.description }}</p>
+        </mat-card-content>
+      </mat-card>
+  
+      <div class="checkout-summary">
+        <h2>Order Summary</h2>
+        <p>Total Items: {{ cartItems.length }}</p>
+        <p>Total Price: ${{ totalPrice | number:'1.2-2' }}</p>
+      </div>
+      
+      <!-- Payment Details Form -->
+      <form (ngSubmit)="processPayment()" #paymentForm="ngForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Shipping Name</mat-label>
+          <input matInput [(ngModel)]="shippingDetails.name" name="name" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Shipping Address</mat-label>
+          <input matInput [(ngModel)]="shippingDetails.address" name="address" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Phone Number</mat-label>
+          <input matInput [(ngModel)]="shippingDetails.phone" name="phone" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="shippingDetails.email" name="email" required email>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Payment Method</mat-label>
+          <mat-select [(ngModel)]="selectedPaymentMethod" name="paymentMethod" required>
+            <mat-option value="card">Credit/Debit Card</mat-option>
+            <mat-option value="online">Online Payment</mat-option>
+            <mat-option value="cod">Cash on Delivery</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- Conditional payment details based on selected payment method -->
+        <div *ngIf="selectedPaymentMethod === 'card'">
+          <mat-form-field appearance="fill">
+            <mat-label>Card Number</mat-label>
+            <input matInput [(ngModel)]="paymentDetails.cardNumber" name="cardNumber" required>
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill">
+            <mat-label>Expiration Date</mat-label>
+            <input matInput [(ngModel)]="paymentDetails.expiryDate" name="expiryDate" required>
+          </mat-form-field>
+      
+          <mat-form-field appearance="fill">
+            <mat-label>CVV</mat-label>
+            <input matInput [(ngModel)]="paymentDetails.cvv" name="cvv" required type="password">
+          </mat-form-field>
+        </div>
+        <div *ngIf="selectedPaymentMethod === 'online'">
+          <mat-form-field>
+            <mat-label>UPI ID</mat-label>
+            <input matInput [(ngModel)]="paymentDetails.upiId" name="upiId" />
+          </mat-form-field>
+        </div>
+  
+        <button mat-raised-button color="primary" type="submit">Submit Payment</button>
+      </form>
+    </div>
+  
+    <!-- Message when no items are in the cart -->
+    <div *ngIf="cartItems.length === 0" class="empty-cart-message">
+      Your cart is empty.
+    </div>
+  </div>
+  

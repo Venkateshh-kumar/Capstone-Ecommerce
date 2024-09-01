@@ -1,0 +1,73 @@
+<div class="page-container">
+    <br><br>
+    
+      <section class="products">
+        <div *ngIf="loading">Loading products...</div>
+        <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+        <div class="product-row">
+          <div *ngFor="let product of products" class="product">
+            <img [src]="product.image" [alt]="product.name" class="product-image">
+            <h2>{{ product.name }}</h2>
+            <h3>Cost ${{ product.price }}</h3>
+            <div class="button-container">
+            <button (click)="startEditing(product)">Edit</button>
+            <button (click)="confirmDelete(product)">Delete</button>
+            <button (click)="showAddForm()">Add Product</button>
+            </div>
+            
+            
+            <!-- Inline editing form -->
+            <div *ngIf="editingProduct && editingProduct._id === product._id" class="product-form-container">
+              <form (ngSubmit)="updateProduct()">
+                <label for="name">Name:</label>
+                <input type="text" id="name" [(ngModel)]="editingProduct.name" name="name" required>
+    
+                <label for="description">Description:</label>
+                <textarea id="description" [(ngModel)]="editingProduct.description" name="description" required></textarea>
+    
+                <label for="price">Price:</label>
+                <input type="number" id="price" [(ngModel)]="editingProduct.price" name="price" required>
+    
+                <label for="category">Category:</label>
+                <select id="category" [(ngModel)]="editingProduct.category" name="category" required>
+                  <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                </select>
+    
+                <label for="image">Image URL:</label>
+                <input type="text" id="image" [(ngModel)]="editingProduct.image" name="image" required>
+    
+                <button type="submit">Update Product</button>
+                <button type="button" (click)="cancelEditing()">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+      <!-- Add Product Form -->
+      <div *ngIf="showForm === 'add'" class="product-form-container">
+        <h2>Add New Product</h2>
+        <form (ngSubmit)="addProduct()" #productForm="ngForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" [(ngModel)]="newProduct.name" name="name" required>
+    
+          <label for="description">Description:</label>
+          <textarea id="description" [(ngModel)]="newProduct.description" name="description" required></textarea>
+    
+          <label for="price">Price:</label>
+          <input type="number" id="price" [(ngModel)]="newProduct.price" name="price" required>
+    
+          <label for="category">Category:</label>
+          <select id="category" [(ngModel)]="newProduct.category" name="category" required>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+    
+          <label for="image">Image URL:</label>
+          <input type="text" id="image" [(ngModel)]="newProduct.image" name="image" required>
+    
+          <button type="submit">Add Product</button>
+          <button type="button" (click)="toggleForm()">Cancel</button>
+        </form>
+      </div>
+    </div>
+    

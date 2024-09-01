@@ -1,0 +1,33 @@
+<div class="cart-container">
+    <h1>Cart</h1>
+    
+    <!-- Display cart items if available -->
+    <div *ngIf="cartItems.length > 0">
+      <mat-card *ngFor="let item of cartItems">
+        <mat-card-header>
+          <mat-card-title>{{ item.name }}</mat-card-title>
+          <mat-card-subtitle>Price: ${{ item.price }} | Quantity: {{ item.quantity }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="item.image" alt="{{ item.name }}">
+        <mat-card-content>
+          <p>{{ item.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="removeItem(item)">Remove</button>
+        </mat-card-actions>
+      </mat-card>
+  
+      <div class="cart-summary">
+        <h2>Cart Summary</h2>
+        <p>Total Items: {{ cartItems.length }}</p>
+        <p>Total Price: ${{ totalPrice | number:'1.2-2' }}</p>
+        <button mat-raised-button color="accent" (click)="checkout()">Proceed to Checkout</button>
+      </div>
+    </div>
+  
+    <!-- Message when no items are in the cart -->
+    <div *ngIf="cartItems.length === 0" class="empty-cart-message">
+      Your cart is empty.
+    </div>
+  </div>
+  

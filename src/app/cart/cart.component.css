@@ -1,0 +1,93 @@
+/* Main Cart Container */
+.cart-container {
+    padding: 20px;
+    max-width: 600px; /* Adjust max-width as needed */
+    margin: 20px; /* Aligns the cart to the left instead of centering */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Card Styling */
+  mat-card {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Card Header */
+  mat-card-header {
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    overflow: hidden;
+  }
+  
+  /* Card Title and Subtitle */
+  mat-card-title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  mat-card-subtitle {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  /* Image Styling - Very Small Size */
+  mat-card-image {
+    width: 80px; /* Fixed small width */
+    height: auto; /* Automatically adjusts height to maintain aspect ratio */
+    display: block; /* Centers the image when combined with margin */
+    margin: 10px auto; /* Centers the image horizontally */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+    border-radius: 5px; /* Optional: adds a slight rounding to the image edges */
+  }
+  
+  /* Card Content */
+  mat-card-content {
+    padding: 12px;
+    background-color: #fafafa;
+  }
+  
+  /* Card Actions */
+  mat-card-actions {
+    padding: 8px;
+    text-align: right;
+  }
+  
+  button {
+    margin-top: 8px;
+  }
+  
+  /* Cart Summary */
+  .cart-summary {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Cart Summary Title and Text */
+  .cart-summary h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .cart-summary p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* Empty Cart Message */
+  .empty-cart-message {
+    text-align: center;
+    font-size: 16px;
+    color: #999;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  

@@ -1,0 +1,39 @@
+<div class="order-container">
+    <h1>Order Details</h1>
+  
+    <div *ngIf="order">
+      <h2>Order Summary</h2>
+      <p><strong>Order ID:</strong> {{ order._id }}</p>
+      <p><strong>Total Price:</strong> ${{ order.totalPrice | number:'1.2-2' }}</p>
+      <p><strong>Shipping Name:</strong> {{ order.shippingDetails.name }}</p>
+      <p><strong>Shipping Address:</strong> {{ order.shippingDetails.address }}</p>
+      <p><strong>Phone Number:</strong> {{ order.shippingDetails.phone }}</p>
+      
+      <h3>Cart Items:</h3>
+      <mat-card *ngFor="let item of order.cartItems">
+        <mat-card-header>
+          <mat-card-title>{{ item.name }}</mat-card-title>
+          <mat-card-subtitle>Price: ${{ item.price }} | Quantity: {{ item.quantity }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="item.image" alt="{{ item.name }}">
+        <mat-card-content>
+          <p>{{ item.description }}</p>
+        </mat-card-content>
+      </mat-card>
+  
+      <h3>Payment Details:</h3>
+      <p *ngIf="order.selectedPaymentMethod === 'card'">
+        <strong>Card Number:</strong> {{ order.paymentDetails.cardNumber }}<br>
+        <strong>Expiration Date:</strong> {{ order.paymentDetails.expiryDate }}<br>
+        <strong>CVV:</strong> {{ order.paymentDetails.cvv }}
+      </p>
+      <p *ngIf="order.selectedPaymentMethod === 'online'">
+        <strong>UPI ID:</strong> {{ order.paymentDetails.upiId }}
+      </p>
+    </div>
+  
+    <div *ngIf="!order">
+      <p>Loading order details...</p>
+    </div>
+  </div>
+  

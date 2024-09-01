@@ -1,0 +1,26 @@
+<div class="page-container">
+  <section class="filter">
+    <label for="category">Filter by Category:</label>
+    <select id="category" (change)="onCategoryChange($event)">
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+  </section>
+
+  <section class="products">
+    <div *ngIf="loading">Loading products...</div>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <div class="product-row">
+      <div *ngFor="let product of filteredProducts" class="product-card">
+        <img [src]="product.image" [alt]="product.name" class="product-image">
+        <div class="product-info">
+          <h2>{{ product.name }}</h2>
+          <h3>Cost ${{ product.price }}</h3>
+          <p>{{ product.description }}</p>
+          <button (click)="addToCart(product)">Add to Cart</button>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+</div>

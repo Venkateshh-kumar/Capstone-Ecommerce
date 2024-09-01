@@ -1,0 +1,63 @@
+
+.team {
+    text-align: center;
+    padding: 50px 0;
+  }
+
+  .section-heading {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .profile {
+    position: relative;
+    width: 200px;
+    cursor: pointer;
+  }
+
+  .profile img {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .profile .name {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .profile .details {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    width: 90%;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .profile:hover img {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  .profile:hover .details {
+    display: block;
+    opacity: 1;
+  }

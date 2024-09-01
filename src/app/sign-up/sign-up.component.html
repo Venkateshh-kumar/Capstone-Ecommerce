@@ -1,0 +1,50 @@
+<p>sign-up works!</p>
+<div class="form-container">
+  <div class="form-horizontal">
+    <form (ngSubmit)="signUp()" #signUpForm="ngForm">
+      <div class="form-group">
+        <label for="signUpFullName">Full Name:</label>
+        <input id="signUpFullName" [(ngModel)]="signUpFullName" name="fullName" #fullName="ngModel" required>
+        <div *ngIf="signUpForm.submitted && !fullName.valid" class="error">
+          Full Name is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signUpEmail">Email:</label>
+        <input id="signUpEmail" type="email" [(ngModel)]="signUpEmail" name="email" #email="ngModel" required>
+        <div *ngIf="signUpForm.submitted && !email.valid" class="error">
+          Valid Email is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signUpPhone">Phone:</label>
+        <input id="signUpPhone" [(ngModel)]="signUpPhone" name="phone" #phone="ngModel" required>
+        <div *ngIf="signUpForm.submitted && !phone.valid" class="error">
+          Phone is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signUpPassword">Password:</label>
+        <input id="signUpPassword" type="password" [(ngModel)]="signUpPassword" name="password" #password="ngModel" required>
+        <div *ngIf="signUpForm.submitted && !password.valid" class="error">
+          Password is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signUpConfirmPassword">Confirm Password:</label>
+        <input id="signUpConfirmPassword" type="password" [(ngModel)]="signUpConfirmPassword" name="confirmPassword" #confirmPassword="ngModel" required>
+        <div *ngIf="signUpForm.submitted && !confirmPassword.valid" class="error">
+          Confirm Password is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="isAdmin" name="isAdmin"> Admin
+        </label>
+      </div>
+      <div class="form-group">
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>
