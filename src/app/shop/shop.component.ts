@@ -191,31 +191,41 @@ export class ShopComponent implements OnInit {
     const category = target.value;
     this.getProducts(category);
   }
-
   addToCart(product: any, event: Event): void {
     event.stopPropagation(); // Prevent event from bubbling up to product card
-    const existingCartItems = localStorage.getItem(this.cartKey);
+
+    const existingCartItems: any = localStorage.getItem("cartItems");
     const cartItems = existingCartItems ? JSON.parse(existingCartItems) : [];
-    const existingProduct = cartItems.find((item: any) => item._id === product._id);
-  
+    const userId = localStorage.getItem("userId");
+
+    // Find if the product already exists in the cart for the current user
+    const existingProduct = cartItems.find(
+        (item: any) => item._id === product._id && item.userId === userId
+    );
+
     if (existingProduct) {
-      existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+        // If the product exists, increase its quantity
+        existingProduct.quantity = (existingProduct.quantity || 1) + 1;
     } else {
-      cartItems.push({ ...product, quantity: 1 });
+        // If the product does not exist, add it with a quantity of 1
+        cartItems.push({ ...product, quantity: 1, userId });
     }
-  
-    localStorage.setItem(this.cartKey, JSON.stringify(cartItems));
-    product.addedToCart = true; // Update product object to show confirmation message
+
+    // Save the updated cart items back to localStorage
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    // Update the product object to show confirmation message
+    product.addedToCart = true;
 
     // Show snackbar message
-    this.snackBar.open('Your item has been successfully added to the cart!', 'Close', {
-      duration: 5000, // Duration in milliseconds
+    this.snackBar.open('Your item has been successfully added to the cart.', 'Close', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
     });
+}
 
-    setTimeout(() => {
-      product.addedToCart = false; // Hide confirmation message after a delay
-    }, 2000);
-  }
+  
 
   showProductInfo(product: any): void {
     this.selectedProduct = product;

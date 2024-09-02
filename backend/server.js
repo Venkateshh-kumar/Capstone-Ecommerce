@@ -16,14 +16,14 @@ app.use(bodyParser.json());
  * 
  */
 
-const connectToDB = async() => {
-   try {
-    const uri = 'mongodb+srv://venkatesh:Vk%40848381@cluster2.g5fip.mongodb.net/myDatabase?retryWrites=true&w=majority';
-    const connectionInstance = await mongoose.connect(uri)
-    console.log(`\n MongoDB connected !! DB HOST ${connectionInstance.connection.host}`);
-   } catch (error) {
-    console.log(`mongoDB connection error \nError:${error.message}`)
-   }
+const connectToDB = async () => {
+    try {
+        const uri = 'mongodb+srv://venkatesh:Vk%40848381@cluster2.g5fip.mongodb.net/myDatabase?retryWrites=true&w=majority';
+        const connectionInstance = await mongoose.connect(uri)
+        console.log(`\n MongoDB connected !! DB HOST ${connectionInstance.connection.host}`);
+    } catch (error) {
+        console.log(`mongoDB connection error \nError:${error.message}`)
+    }
 }
 
 connectToDB();
@@ -48,7 +48,7 @@ const ProductSchema = new mongoose.Schema({
     category: String,
     quantity: { type: Number, default: 0 },
     image: String
-    
+
 });
 
 const Product = mongoose.model('Product', ProductSchema);
@@ -85,6 +85,7 @@ const Order = mongoose.model('Order', OrderSchema);
 // Middleware to authenticate user
 const authenticateToken = (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
+    console.log(token)
     if (token == null) return res.sendStatus(401);
 
     jwt.verify(token, 'your_jwt_secret', (err, user) => {
@@ -93,6 +94,20 @@ const authenticateToken = (req, res, next) => {
         next();
     });
 };
+
+//for profile 
+app.get('/api/users/profile', authenticateToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id); // Fetch user by ID
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({ user });
+    } catch (err) {
+        console.error('Error fetching profile:', err.message);
+        res.status(500).json({ error: 'Failed to fetch profile' });
+    }
+});
 
 // Route to handle user registration
 app.post('/api/users/signup', async (req, res) => {
@@ -155,8 +170,8 @@ app.post('/api/users/signin', async (req, res) => {
 // Route to add a new product
 app.post('/api/products', async (req, res) => {
     try {
-        const { name, price, description, category,quantity, image } = req.body;
-        const product = new Product({ name, price, description, category,quantity, image });
+        const { name, price, description, category, quantity, image } = req.body;
+        const product = new Product({ name, price, description, category, quantity, image });
         await product.save();
         res.status(201).json(product);
     } catch (err) {
@@ -180,10 +195,10 @@ app.get('/api/products', async (req, res) => {
 app.put('/api/products/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, price, description, category,quantity, image } = req.body;
+        const { name, price, description, category, quantity, image } = req.body;
 
         const updatedProduct = await Product.findByIdAndUpdate(id, {
-            name, price, description, category,quantity, image
+            name, price, description, category, quantity, image
         }, { new: true });
 
         if (!updatedProduct) {
@@ -226,8 +241,11 @@ app.get('/api/products/categories', (req, res) => {
     }
 });
 
+// const mongoose = require('mongoose');
+// const Order = require('./models/Order');  // Assuming your Order model is in a file named Order.js
+
 // Route to create a new order
-app.post('/api/orders', async (req, res) => {
+app.post('/api/orders', authenticateToken, async (req, res) => {
     try {
         const orderData = req.body;
 
@@ -236,7 +254,16 @@ app.post('/api/orders', async (req, res) => {
             return res.status(400).json({ error: 'Email is required in shipping details' });
         }
 
-        const order = new Order(orderData);
+        // Properly instantiate ObjectId with 'new'
+        const userId = new mongoose.Types.ObjectId(req.user.id);
+
+        // Create a new order object with the userId
+        const order = new Order({
+            ...orderData,
+            userId: userId  // Ensure this is an ObjectId
+        });
+
+        // Save the order to the database
         await order.save();
         res.status(201).json(order);
     } catch (err) {
@@ -245,9 +272,11 @@ app.post('/api/orders', async (req, res) => {
     }
 });
 
+
 // Route to get orders for the logged-in user
 app.get('/api/orders', authenticateToken, async (req, res) => {
     try {
+        
         const orders = await Order.find({ userId: req.user.id });
         res.json(orders);
     } catch (err) {

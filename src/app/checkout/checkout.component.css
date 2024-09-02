@@ -1,90 +1,174 @@
 /* Container for the entire checkout page */
 .checkout-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Styling for the card items */
+mat-card {
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Place the image on top with adjusted size */
+mat-card-header {
+  padding: 0;
+  position: relative;
+}
+
+/* Image styling to fit on top of the card */
+img[mat-card-image] {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Title and subtitle styling below the image */
+mat-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+mat-card-subtitle {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+}
+
+/* Ensure content has a comfortable padding */
+mat-card-content {
+  padding: 16px;
+}
+
+/* Image styling for a small square format */
+img[mat-card-image] {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 16px;
+  border-radius: 4px;
+}
+
+/* Styling for the order summary section */
+.checkout-summary {
+  margin-top: 20px;
+  padding: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Title and paragraph styles within the summary */
+.checkout-summary h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.checkout-summary p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Form styling with consistent margin */
+form {
+  margin-top: 20px;
+}
+
+/* Full-width input fields with bottom margin */
+mat-form-field {
+  width: 400px;
+
+}
+
+mat-form-field input, mat-form-field mat-select {
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 22px;
+  border: 1px solid #dcd0d0;
+  font-size: 16px;
+}
+
+mat-option {
+  font-size: 16px;
+}
+
+/* Bold labels with consistent color */
+mat-label {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Button styles with margin for spacing */
+button[mat-raised-button] {
+  margin-top: 20px;
+  background-color: #3f51b5;
+  color: #fff;
+  border-radius: 8px;
+}
+
+/* Empty cart message with centered text and neutral color */
+.empty-cart-message {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  margin-top: 50px;
+}
+
+/* Media queries for mobile view */
+@media only screen and (max-width: 400px) {
+  .checkout-container {
+    max-width: 100%; /* Make the container full width on mobile */
+    padding: 10px; /* Reduce padding for smaller screens */
   }
-  
-  /* Styling for the card items */
-  mat-card {
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  mat-card-header {
-    background-color: #f5f5f5;
-    padding: 16px;
-  }
-  
-  mat-card-title {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  mat-card-subtitle {
-    font-size: 14px;
-    color: #555;
-  }
-  
-  mat-card-content {
-    padding: 16px;
-  }
-  
+
   img[mat-card-image] {
-    width: 100%; /* Make the image fit the width of the card */
-    max-width: 300px; /* Set a maximum width for the image */
-    height: 250px; /* Maintain aspect ratio */
-    object-fit: cover; /* Ensure the image covers the area, cropping if necessary */
-    display: block; /* Remove any extra space below the image */
-    margin: 0 auto; /* Center the image horizontally */
+    width: 100px; /* Reduce image size on mobile */
+    height: 100px;
+    margin: 0 auto 10px; /* Adjust margin for smaller screens */
   }
-  
-  /* Styling for the order summary section */
+
+  mat-card-title {
+    font-size: 16px; /* Slightly smaller font size for mobile */
+  }
+
+  mat-card-subtitle {
+    font-size: 12px; /* Adjust font size for mobile view */
+  }
+
+  mat-card-content {
+    padding: 10px; /* Reduce padding inside the card for smaller screens */
+  }
+
   .checkout-summary {
-    margin-top: 20px;
-    padding: 10px;
-    border-top: 1px solid #e0e0e0;
+    padding: 15px; /* Slightly more padding for better touch targets */
   }
-  
+
   .checkout-summary h2 {
-    margin: 0 0 10px;
-    font-size: 20px;
-    color: #333;
+    font-size: 18px; /* Reduce the font size of the heading */
   }
-  
+
   .checkout-summary p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #666;
+    font-size: 14px; /* Adjust font size for smaller screens */
   }
-  
-  /* Styling for the payment details form */
+
   form {
-    margin-top: 20px;
+    margin-top: 15px; /* Reduce margin for mobile view */
   }
-  
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  
-  mat-label {
-    font-weight: bold;
-    color: #333;
-  }
-  
+
   button[mat-raised-button] {
-    margin-top: 20px;
+    margin-top: 15px; /* Reduce margin for buttons */
   }
-  
-  /* Styling for empty cart message */
+
   .empty-cart-message {
-    text-align: center;
-    font-size: 18px;
-    color: #888;
-    margin-top: 50px;
+    font-size: 16px; /* Slightly smaller font size for mobile */
+    margin-top: 30px; /* Reduce top margin for better spacing */
   }
-  
+}

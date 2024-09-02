@@ -36,6 +36,7 @@ export class CheckoutComponent implements OnInit {
 
   private cartKey = 'cartItems';
   private apiUrl = 'http://localhost:5000/api/orders'; // API endpoint for orders
+item: any;
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -43,23 +44,26 @@ export class CheckoutComponent implements OnInit {
     this.loadCartItems();
     this.calculateTotalPrice();
   }
+  getTotalQuantity(){
+    return this.cartItems.reduce((total, item) => total + item.quantity, 0);
+  }
 
   loadCartItems(): void {
     const items = localStorage.getItem(this.cartKey);
-    this.cartItems = items ? JSON.parse(items) : [];
+    const userId = localStorage.getItem("userId");
+    this.cartItems = items ? JSON.parse(items).filter((ele:any)=>ele.userId === userId) : [];
   }
 
   calculateTotalPrice(): void {
     this.totalPrice = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   }
-
   processPayment(): void {
     // Check for required fields based on selected payment method
     if (!this.shippingDetails.email) {
       alert('Please provide your email address.');
       return;
     }
-
+  
     if (this.selectedPaymentMethod === 'card') {
       if (!this.paymentDetails.cardNumber || !this.paymentDetails.expiryDate || !this.paymentDetails.cvv) {
         alert('Please fill in all card details.');
@@ -71,7 +75,7 @@ export class CheckoutComponent implements OnInit {
         return;
       }
     }
-
+  
     // Prepare order data
     const orderData = {
       cartItems: this.cartItems,
@@ -79,18 +83,27 @@ export class CheckoutComponent implements OnInit {
       shippingDetails: this.shippingDetails,
       paymentDetails: this.paymentDetails
     };
-
+  
+    // Retrieve the JWT token from localStorage or another source
+    const token = localStorage.getItem('authToken'); // Ensure this key matches where you store the token
+  
+    // Set up HTTP headers with Authorization token
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+  
     // Save order details to the server
-    this.http.post(this.apiUrl, orderData).subscribe({
+    this.http.post(this.apiUrl, orderData, { headers }).subscribe({
       next: (response: any) => {
         // Clear the cart
         localStorage.removeItem(this.cartKey);
         this.cartItems = [];
         this.totalPrice = 0;
-
+  
         // Show success message
         this.paymentSuccess = true;
-
+  
         // Optionally, reset the form or hide the payment section
         this.shippingDetails = { name: '', address: '', phone: '', email: '' };
         this.paymentDetails = { cardNumber: '', expiryDate: '', cvv: '', upiId: '' }; // Reset all payment details
@@ -102,4 +115,13 @@ export class CheckoutComponent implements OnInit {
       }
     });
   }
+  closePopup(): void {
+    this.paymentSuccess = false;
+    this.router.navigate(['/home']); // Redirect to the home page after closing the pop-up
+  }
+
+  navigateToOrders(){
+    this.router.navigate(['/orders'])
+  }
+
 }

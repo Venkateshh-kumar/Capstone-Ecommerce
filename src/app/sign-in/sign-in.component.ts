@@ -21,8 +21,9 @@ export class SignInComponent {
     console.log("hello")
     this.authService.signIn(this.signInEmail, this.signInPassword).subscribe(
       response => {
-        console.log('Sign In Successful', response);
-        this.router.navigate(['/home']);
+        // console.log('Sign In Successful', response.user._id);
+        localStorage.setItem("userId", response.user._id)
+        this.router.navigate(['/profile']);
       },
       error => {
         console.error('Sign In Failed', error);

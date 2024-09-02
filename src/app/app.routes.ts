@@ -9,9 +9,11 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component'; 
 import { OrderComponent } from './order/order.component';
 import { AdminGuard } from './admin.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 
 export const routes: Routes = [
+  // { path: '**', redirectTo: '', pathMatch: 'full'},
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'products', component: ProductComponent , canActivate: [AdminGuard]},
@@ -22,4 +24,5 @@ export const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'order', component: OrderComponent },
+  { path: 'profile', component: ProfileComponent },
 ];
