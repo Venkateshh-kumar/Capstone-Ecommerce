@@ -1,4 +1,4 @@
-// Import necessary modules
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-// Initialize Express app
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -28,19 +28,19 @@ const connectToDB = async () => {
 
 connectToDB();
 
-// Define User model
+//  User model
 const UserSchema = new mongoose.Schema({
     fullName: String,
     email: { type: String, unique: true },
     phone: { type: String, unique: true },
     password: String,
-    isAdmin: { type: Boolean, default: false } // Add this line
+    isAdmin: { type: Boolean, default: false } 
 });
 
 
 const User = mongoose.model('User', UserSchema);
 
-// Define Product model
+//  Product model
 const ProductSchema = new mongoose.Schema({
     name: String,
     price: Number,
@@ -53,7 +53,7 @@ const ProductSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', ProductSchema);
 
-// Define Order model
+//  Order model
 const OrderSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     cartItems: [{

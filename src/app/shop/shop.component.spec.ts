@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
+import { RouterTestingModule } from '@angular/router/testing'; // Import RouterTestingModule if needed
+import { MatSnackBarModule } from '@angular/material/snack-bar'; // Import MatSnackBarModule
 import { ShopComponent } from './shop.component';
 
 describe('ShopComponent', () => {
@@ -8,7 +10,12 @@ describe('ShopComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShopComponent]
+      imports: [
+        ShopComponent,
+        HttpClientTestingModule, // Include HttpClientTestingModule
+        RouterTestingModule, // Include RouterTestingModule if necessary
+        MatSnackBarModule // Include MatSnackBarModule if needed
+      ]
     })
     .compileComponents();
 

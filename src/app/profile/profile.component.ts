@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
   user: any = {};
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUserProfile().subscribe(
       response => {
-        this.user = response.user;
+        // Check if the user object is correctly assigned
+        this.user = response; // Adjust according to your API response
       },
       error => {
         console.error('Error fetching profile:', error);
@@ -26,9 +28,8 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  profileLogout(){
+  profileLogout(): void {
     this.authService.logout(); // Call the logout method from AuthService
     this.router.navigate(['/sign-in']);
-
   }
 }

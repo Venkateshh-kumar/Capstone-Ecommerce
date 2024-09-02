@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
+import { RouterTestingModule } from '@angular/router/testing'; // Import RouterTestingModule if needed
 import { OrderComponent } from './order.component';
 
 describe('OrderComponent', () => {
@@ -8,7 +9,11 @@ describe('OrderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OrderComponent]
+      imports: [
+        OrderComponent,
+        HttpClientTestingModule, // Add HttpClientTestingModule here
+        RouterTestingModule // Add RouterTestingModule if your component uses routing
+      ]
     })
     .compileComponents();
 

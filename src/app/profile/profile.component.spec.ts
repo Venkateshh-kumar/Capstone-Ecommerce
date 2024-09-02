@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule
+import { RouterTestingModule } from '@angular/router/testing'; // Import RouterTestingModule
 import { ProfileComponent } from './profile.component';
+import { AuthService } from '../auth.service';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -8,7 +10,12 @@ describe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProfileComponent]
+      imports: [
+        ProfileComponent,
+        HttpClientTestingModule, // Include HttpClientTestingModule
+        RouterTestingModule // Include RouterTestingModule
+      ],
+      providers: [AuthService] // Provide AuthService
     })
     .compileComponents();
 

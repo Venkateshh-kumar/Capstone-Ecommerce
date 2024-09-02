@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -47,9 +46,9 @@ export class AuthService {
     );
   }
 
-  //too see the profile
+  // Method to get the user profile
   getUserProfile(): Observable<any> {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(this.TOKEN_KEY);
     return this.http.get(`${this.apiUrl}/profile`, {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -57,9 +56,10 @@ export class AuthService {
     });
   }
 
-  Profilelogout(): void {
-    localStorage.removeItem('token');
-    // Redirect or update application state as necessary
+  // Method to logout
+  logout(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+    this.adminStatus.next(false); // Reset admin status
   }
 
   // Method to get the current admin status as an observable
@@ -79,7 +79,7 @@ export class AuthService {
   }
 
   // Method to store the JWT token in local storage
-  private storeToken(token: string): void {
+  public storeToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
@@ -88,15 +88,8 @@ export class AuthService {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  // Method to remove the token from local storage (e.g., on logout)
-  logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    this.adminStatus.next(false); // Reset admin status
-  }
-
   // Method to check if the user is authenticated
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
 }
-
